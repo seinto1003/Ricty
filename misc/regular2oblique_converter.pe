@@ -1,15 +1,15 @@
 #!/usr/local/bin/fontforge -script
 
 #
-# Regular to Italic Converter
+# Regular to Oblique Converter
 #
 # Author: Yasunori Yusa <lastname at save.sys.t.u-tokyo.ac.jp>
 #
-# This script is to convert a regular font to an italic (oblique) one.
-# Italic and bold italic fonts will be available on Emacs.
+# This script is to convert a regular font to an oblique one.
+# Oblique and bold oblique fonts will be available on Emacs.
 #
 # How to use:
-usage = "Usage: fontforge -script regular2italic_converter.pe fontfamily-fontstyle.ttf ..."
+usage = "Usage: fontforge -script regular2oblique_converter.pe fontfamily-fontstyle.ttf ..."
 #
 
 if ($argc == 1)
@@ -38,11 +38,11 @@ input_style  = Strsub(input, hypen_index + 1)
 output_family = input_family
 
 if (input_style == "Regular" || input_style == "Roman")
-    output_style = "Italic"
-    style        = "Italic"
+    output_style = "Oblique"
+    style        = "Oblique"
 else
-    output_style = input_style + "Italic"
-    style        = input_style + " Italic"
+    output_style = input_style + "Oblique"
+    style        = input_style + " Oblique"
 endif
 
 Open(input_ttf)
