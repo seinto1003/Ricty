@@ -322,6 +322,8 @@ Ricty の派生フォントです。
 
 # メモ
 
+* `misc/regular2italic_converter.pe` でイタリック体 (斜体) を生成できます。
+  Ricty Discord Italic は Discord 化、イタリック体化の順で生成してください。
 * `ricty_generator.sh` に Migu 1M 以外の日本語フォントを食べさせても
   大抵はうまく合成されます。
   ボールド体がない日本語フォントでも、
