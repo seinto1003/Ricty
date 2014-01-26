@@ -2,11 +2,11 @@
 
 #
 # Ricty Generator
-ricty_version="3.2.2"
+ricty_version="3.2.3b"
 #
-# Author: Yasunori Yusa <lastname at save dot sys.t.u-tokyo.ac.jp>
+# Author: Yasunori Yusa <lastname at save.sys.t.u-tokyo.ac.jp>
 #
-# This script is for generating ``Ricty'' font from Inconsolata and Migu 1M.
+# This script is to generate ``Ricty'' font from Inconsolata and Migu 1M.
 # It requires 2-5 minutes to generate Ricty. Owing to SIL Open Font License
 # Version 1.1 section 5, it is PROHIBITED to distribute the generated font.
 # This script supports following versions of inputting fonts.
@@ -15,8 +15,9 @@ ricty_version="3.2.2"
 #                       20120411
 #                       20121030
 #                       20130430
+#                       20130617
 #
-# How to use:
+# Usage:
 # 1. Install FontForge
 #    Debian/Ubuntu: # apt-get install fontforge
 #    Fedora/CentOS: # yum install fontforge
@@ -27,44 +28,44 @@ ricty_version="3.2.2"
 # 3. Get migu-1m-regular/bold.ttf
 #    from http://mix-mplus-ipa.sourceforge.jp/
 # 4. Run this script
-#    % sh ricty_generator.sh auto
+#        % sh ricty_generator.sh auto
 #    or
-#    % sh ricty_generator.sh Inconsolata.otf migu-1m-regular.ttf migu-1m-bold.ttf
+#        % sh ricty_generator.sh Inconsolata.otf migu-1m-regular.ttf migu-1m-bold.ttf
 # 5. Install Ricty
-#    % cp -f Ricty*.ttf ~/.fonts/
-#    % fc-cache -vf
+#        % cp -f Ricty*.ttf ~/.fonts/
+#        % fc-cache -vf
 #
 
-# set familyname
+# Set familyname
 ricty_familyname="Ricty"
-ricty_addfamilyname=""
+ricty_familyname_suffix=""
 
-# set ascent and descent (line width parameters)
+# Set ascent and descent (line width parameters)
 ricty_ascent=835
 ricty_descent=215
 
-# set bold width of ASCII glyphs
+# Set bold width of ASCII glyphs
 ascii_regular_width=0
 ascii_bold_width=30
 
-# set path to fontforge command
-fontforge_cmd="fontforge"
+# Set path to fontforge command
+fontforge_command="fontforge"
 
-# set redirection of stderr
+# Set redirection of stderr
 redirection_stderr="/dev/null"
 
-# set fonts directories used in auto flag
-fonts_dirs=". ${HOME}/.fonts /usr/local/share/fonts /usr/share/fonts ${HOME}/Library/Fonts /Library/Fonts /cygdrive/c/Windows/Fonts"
+# Set fonts directories used in auto flag
+fonts_directories=". ${HOME}/.fonts /usr/local/share/fonts /usr/share/fonts ${HOME}/Library/Fonts /Library/Fonts /cygdrive/c/Windows/Fonts"
 
-# set zenkaku space glyph
+# Set zenkaku space glyph
 zenkaku_space_glyph=""
 
-# set flags
+# Set flags
 leaving_tmp_flag="false"
 fullwidth_ambiguous_flag="true"
 scaling_down_flag="true"
 
-# set filenames
+# Set filenames
 modified_inconsolata_generator="modified_inconsolata_generator.pe"
 modified_inconsolata_regu="Modified-Inconsolata-Regular.sfd"
 modified_inconsolata_bold="Modified-Inconsolata-Bold.sfd"
@@ -74,22 +75,22 @@ modified_migu1m_bold="Modified-migu-1m-bold.sfd"
 ricty_generator="ricty_generator.pe"
 
 ########################################
-# pre-process
+# Pre-process
 ########################################
 
-# print information message
+# Print information message
 cat << _EOT_
 Ricty Generator ${ricty_version}
 
-Author: Yasunori Yusa <lastname at save dot sys.t.u-tokyo.ac.jp>
+Author: Yasunori Yusa <lastname at save.sys.t.u-tokyo.ac.jp>
 
-This script is for generating \`\`Ricty'' font from Inconsolata and Migu 1M.
+This script is to generate \`\`Ricty'' font from Inconsolata and Migu 1M.
 It requires 2-5 minutes to generate Ricty. Owing to SIL Open Font License
 Version 1.1 section 5, it is PROHIBITED to distribute the generated font.
 
 _EOT_
 
-# display help
+# Define displaying help function
 ricty_generator_help()
 {
     echo "Usage: ricty_generator.sh [options] auto"
@@ -101,7 +102,7 @@ ricty_generator_help()
     echo "  -f /path/to/fontforge  Set path to fontforge command"
     echo "  -v                     Enable verbose mode (display fontforge's warnings)"
     echo "  -l                     Leave (NOT remove) temporary files"
-    echo "  -n string              Set additional fontfamily name (\`\`Ricty string'')"
+    echo "  -n string              Set fontfamily suffix (\`\`Ricty string'')"
     echo "  -w                     Widen line space"
     echo "  -W                     Widen line space extremely"
     echo "  -b                     Make bold-face ASCII glyphs more bold"
@@ -113,7 +114,7 @@ ricty_generator_help()
     exit 0
 }
 
-# get options
+# Get options
 while getopts hVf:vln:wWbBZ:zas OPT
 do
     case "$OPT" in
@@ -125,7 +126,7 @@ do
             ;;
         "f" )
             echo "Option: Set path to fontforge command: ${OPTARG}"
-            fontforge_cmd="$OPTARG"
+            fontforge_command="$OPTARG"
             ;;
         "v" )
             echo "Option: Enable verbose mode"
@@ -136,8 +137,8 @@ do
             leaving_tmp_flag="true"
             ;;
         "n" )
-            echo "Option: Set additional fontfamily name: ${OPTARG}"
-            ricty_addfamilyname=`echo $OPTARG | sed -e 's/ //g'`
+            echo "Option: Set fontfamily suffix: ${OPTARG}"
+            ricty_familyname_suffix=`echo $OPTARG | sed -e 's/ //g'`
             ;;
         "w" )
             echo "Option: Widen line space"
@@ -181,33 +182,33 @@ do
 done
 shift `expr $OPTIND - 1`
 
-# check fontforge existance
-if ! which $fontforge_cmd > /dev/null 2>&1
+# Check fontforge existance
+if ! which $fontforge_command > /dev/null 2>&1
 then
-    echo "Error: ${fontforge_cmd} command not found" >&2
+    echo "Error: ${fontforge_command} command not found" >&2
     exit 1
 fi
 
-# get input fonts
+# Get input fonts
 if [ $# -eq 1 -a "$1" = "auto" ]
 then
-    # check dirs existance
+    # Check existance of directories
     tmp=""
-    for i in $fonts_dirs
+    for i in $fonts_directories
     do
         [ -d "$i" ] && tmp="$tmp $i"
     done
-    fonts_dirs=$tmp
-    # search Inconsolata
-    input_inconsolata=`find $fonts_dirs -follow -name Inconsolata.otf | head -n 1`
+    fonts_directories=$tmp
+    # Search Inconsolata
+    input_inconsolata=`find $fonts_directories -follow -name Inconsolata.otf | head -n 1`
     if [ -z "$input_inconsolata" ]
     then
         echo "Error: Inconsolata.otf not found" >&2
         exit 1
     fi
-    # search Migu 1M
-    input_migu1m_regu=`find $fonts_dirs -follow -iname migu-1m-regular.ttf | head -n 1`
-    input_migu1m_bold=`find $fonts_dirs -follow -iname migu-1m-bold.ttf    | head -n 1`
+    # Search Migu 1M
+    input_migu1m_regu=`find $fonts_directories -follow -iname migu-1m-regular.ttf | head -n 1`
+    input_migu1m_bold=`find $fonts_directories -follow -iname migu-1m-bold.ttf    | head -n 1`
     if [ -z "$input_migu1m_regu" -o -z "$input_migu1m_bold" ]
     then
         echo "Error: migu-1m-regular/bold.ttf not found" >&2
@@ -215,11 +216,11 @@ then
     fi
 elif [ $# -eq 3 ]
 then
-    # get args
+    # Get arguments
     input_inconsolata=$1
     input_migu1m_regu=$2
     input_migu1m_bold=$3
-    # check file existance
+    # Check existance of files
     if [ ! -r "$input_inconsolata" ]
     then
         echo "Error: ${input_inconsolata} not found" >&2
@@ -233,7 +234,7 @@ then
         echo "Error: ${input_migu1m_bold} not found" >&2
         exit 1
     fi
-    # check filename
+    # Check filename
     [ "$(basename $input_inconsolata)" != "Inconsolata.otf" ] \
         && echo "Warning: ${input_inconsolata} is really Inconsolata?" >&2
     [ "$(basename $input_migu1m_regu)" != "migu-1m-regular.ttf" ] \
@@ -244,7 +245,7 @@ else
     ricty_generator_help
 fi
 
-# make tmp
+# Make temporary directory
 if [ -w "/tmp" -a "$leaving_tmp_flag" = "false" ]
 then
     tmpdir=`mktemp -d /tmp/ricty_generator_tmpdir.XXXXXX` || exit 2
@@ -252,7 +253,7 @@ else
     tmpdir=`mktemp -d ./ricty_generator_tmpdir.XXXXXX`    || exit 2
 fi
 
-# remove tmp by trapping
+# Remove temporary directory by trapping
 if [ "$leaving_tmp_flag" = "false" ]
 then
     trap "if [ -d \"$tmpdir\" ]; then echo 'Remove temporary files'; rm -rf $tmpdir; fi; echo 'Abnormal terminated'; exit 3" HUP INT QUIT
@@ -263,23 +264,23 @@ else
 fi
 
 ########################################
-# generate script for modified Inconsolata
+# Generate script for modified Inconsolata
 ########################################
 
 cat > ${tmpdir}/${modified_inconsolata_generator} << _EOT_
-#!$fontforge_cmd -script
+#!$fontforge_command -script
 
-# print message
+# Print message
 Print("Generate modified Inconsolata.")
 
-# open Inconsolata
+# Open Inconsolata
 Print("Find ${input_inconsolata}.")
 Open("${input_inconsolata}")
 
-# scale to standard glyph size
+# Scale to standard glyph size
 ScaleToEm(860, 140)
 
-# remove ambiguous glyphs
+# Remove ambiguous glyphs
 if ("$fullwidth_ambiguous_flag" == "true")
     Select(0u00a4); Clear() # currency
     Select(0u00a7); Clear() # section
@@ -303,31 +304,31 @@ if ("$fullwidth_ambiguous_flag" == "true")
     Select(0u2193); Clear() # downarrow
 endif
 
-# pre-process for merging
+# Pre-process for merging
 SelectWorthOutputting()
 ClearInstrs(); UnlinkReference()
 
-# save regular-face
+# Save regular-face
 Print("Save ${modified_inconsolata_regu}.")
 Save("${tmpdir}/${modified_inconsolata_regu}")
 
-# make glyphs bold
-Print("While making Inconsolata bold, wait a moment...")
+# Make glyphs bold
+Print("While making Inconsolata bold, wait a little...")
 SelectWorthOutputting()
 ExpandStroke(${ascii_bold_width}, 0, 0, 0, 1)
 Select(0u003e); Copy()           # >
 Select(0u003c); Paste(); HFlip() # <
 RoundToInt(); RemoveOverlap(); RoundToInt()
 
-# save bold-face
+# Save bold-face
 Print("Save ${modified_inconsolata_bold}.")
 Save("${tmpdir}/${modified_inconsolata_bold}")
 Close()
 
-# open regular-face and make it bold
+# Open regular-face and make it bold
 if ($ascii_regular_width != 0)
     Open("${tmpdir}/${modified_inconsolata_regu}")
-    Print("While making regular-face Inconsolata bold, wait a moment...")
+    Print("While making regular-face Inconsolata bold, wait a little...")
     SelectWorthOutputting()
     ExpandStroke(${ascii_regular_width}, 0, 0, 0, 1)
     Select(0u003e); Copy()           # >
@@ -341,25 +342,26 @@ Quit()
 _EOT_
 
 ########################################
-# generate script for modified Migu 1M
+# Generate script for modified Migu 1M
 ########################################
 
 cat > ${tmpdir}/${modified_migu1m_generator} << _EOT_
-#!$fontforge_cmd -script
+#!$fontforge_command -script
 
-# print message
+# Print message
 Print("Generate modified Migu 1M.")
 
-# set parameters
+# Set parameters
 input_list  = ["${input_migu1m_regu}",    "${input_migu1m_bold}"]
 output_list = ["${modified_migu1m_regu}", "${modified_migu1m_bold}"]
 
-# begin loop of regular and bold
-i = 0; while (i < SizeOf(input_list))
-    # open Migu 1M
+# Begin loop of regular and bold
+i = 0
+while (i < SizeOf(input_list))
+    # Open Migu 1M
     Print("Find " + input_list[i] + ".")
     Open(input_list[i])
-    # scale Migu 1M to standard glyph size
+    # Scale Migu 1M to standard glyph size
     ScaleToEm(860, 140)
     SelectWorthOutputting()
     ClearInstrs(); UnlinkReference()
@@ -369,38 +371,40 @@ i = 0; while (i < SizeOf(input_list))
         Move(23, 0); SetWidth(-23, 1)
     endif
     RoundToInt(); RemoveOverlap(); RoundToInt()
-    # save modified Migu 1M
+    # Save modified Migu 1M
     Save("${tmpdir}/" + output_list[i])
     Print("Save " + output_list[i] + ".")
     Close()
-i += 1; endloop
+i += 1
+endloop
+
 Quit()
 _EOT_
 
 ########################################
-# generate script for Ricty
+# Generate script for Ricty
 ########################################
 
 cat > ${tmpdir}/${ricty_generator} << _EOT_
-#!$fontforge_cmd -script
+#!$fontforge_command -script
 
-# print message
+# Print message
 Print("Generate Ricty.")
 
-# set parameters
+# Set parameters
 inconsolata_list  = ["${tmpdir}/${modified_inconsolata_regu}", \\
                      "${tmpdir}/${modified_inconsolata_bold}"]
 migu1m_list       = ["${tmpdir}/${modified_migu1m_regu}", \\
                      "${tmpdir}/${modified_migu1m_bold}"]
 fontfamily        = "$ricty_familyname"
-addfontfamily     = "$ricty_addfamilyname"
+fontfamilysuffix  = "$ricty_familyname_suffix"
 fontstyle_list    = ["Regular", "Bold"]
 fontweight_list   = [400,       700]
 panoseweight_list = [5,         8]
 copyright         = "Ricty Generator Author: Yasunori Yusa\n" \\
                   + "Copyright (c) 2006 Raph Levien\n" \\
-                  + "Copyright (c) 2006-2012 itouhiro\n" \\
-                  + "Copyright (c) 2002-2012 M+ FONTS PROJECT\n" \\
+                  + "Copyright (c) 2006-2013 itouhiro\n" \\
+                  + "Copyright (c) 2002-2013 M+ FONTS PROJECT\n" \\
                   + "Copyright (c) 2003-2011 " \\
                   + "Information-technology Promotion Agency, Japan (IPA)\n" \\
                   + "Licenses:\n" \\
@@ -410,17 +414,18 @@ copyright         = "Ricty Generator Author: Yasunori Yusa\n" \\
                   + "(http://ipafont.ipa.go.jp/ipa_font_license_v1.html)"
 version           = "${ricty_version}"
 
-# begin loop of regular and bold
-i = 0; while (i < SizeOf(fontstyle_list))
-    # open new file
+# Begin loop of regular and bold
+i = 0
+while (i < SizeOf(fontstyle_list))
+    # Open new file
     New()
-    # set encoding to Unicode-bmp
+    # Set encoding to Unicode-bmp
     Reencode("unicode")
-    # set configuration
-    if (addfontfamily != "")
-        SetFontNames(fontfamily + addfontfamily + "-" + fontstyle_list[i], \\
-                     fontfamily + " " + addfontfamily, \\
-                     fontfamily + " " + addfontfamily + " " + fontstyle_list[i], \\
+    # Set configuration
+    if (fontfamilysuffix != "")
+        SetFontNames(fontfamily + fontfamilysuffix + "-" + fontstyle_list[i], \\
+                     fontfamily + " " + fontfamilysuffix, \\
+                     fontfamily + " " + fontfamilysuffix + " " + fontstyle_list[i], \\
                      fontstyle_list[i], \\
                      copyright, version)
     else
@@ -451,12 +456,12 @@ i = 0; while (i < SizeOf(fontstyle_list))
     SetOS2Value("HHeadDescent",         -$ricty_descent)
     SetOS2Value("HHeadLineGap",            0)
     SetPanose([2, 11, panoseweight_list[i], 9, 2, 2, 3, 2, 2, 7])
-    # merge fonts
+    # Merge fonts
     Print("While merging " + inconsolata_list[i]:t \\
-          + " with " +migu1m_list[i]:t + ", wait a little more...")
+          + " with " +migu1m_list[i]:t + ", wait a little...")
     MergeFonts(inconsolata_list[i])
     MergeFonts(migu1m_list[i])
-    # edit zenkaku space (from ballot box and heavy greek cross)
+    # Edit zenkaku space (from ballot box and heavy greek cross)
     if ("$zenkaku_space_glyph" == "")
         Select(0u2610); Copy(); Select(0u3000); Paste()
         Select(0u271a); Copy(); Select(0u3000); PasteInto()
@@ -464,16 +469,16 @@ i = 0; while (i < SizeOf(fontstyle_list))
     else
         Select(${zenkaku_space_glyph}); Copy(); Select(0u3000); Paste()
     endif
-    # edit zenkaku comma and period
+    # Edit zenkaku comma and period
     Select(0uff0c); Scale(150, 150, 100, 0); SetWidth(1000)
     Select(0uff0e); Scale(150, 150, 100, 0); SetWidth(1000)
-    # edit zenkaku colon and semicolon
+    # Edit zenkaku colon and semicolon
     Select(0uff0c); Copy(); Select(0uff1b); Paste()
     Select(0uff0e); Copy(); Select(0uff1b); PasteWithOffset(0, 400)
     CenterInWidth()
     Select(0uff1a); Paste(); PasteWithOffset(0, 400)
     CenterInWidth()
-    # edit zenkaku brackets
+    # Edit zenkaku brackets
     Select(0u0028); Copy(); Select(0uff08); Paste(); Move(250, 0); SetWidth(1000) # (
     Select(0u0029); Copy(); Select(0uff09); Paste(); Move(250, 0); SetWidth(1000) # )
     Select(0u005b); Copy(); Select(0uff3b); Paste(); Move(250, 0); SetWidth(1000) # [
@@ -482,63 +487,65 @@ i = 0; while (i < SizeOf(fontstyle_list))
     Select(0u007d); Copy(); Select(0uff5d); Paste(); Move(250, 0); SetWidth(1000) # }
     Select(0u003c); Copy(); Select(0uff1c); Paste(); Move(250, 0); SetWidth(1000) # <
     Select(0u003e); Copy(); Select(0uff1e); Paste(); Move(250, 0); SetWidth(1000) # >
-    # edit en dash
+    # Edit en dash
     Select(0u2013); Copy()
     PasteWithOffset(200, 0); PasteWithOffset(-200, 0)
     OverlapIntersect()
-    # edit em dash
+    # Edit em dash
     Select(0u2014); Copy()
     PasteWithOffset(320, 0); PasteWithOffset(-320, 0)
     Select(0u007c); Copy(); Select(0u2014); PasteInto()
     OverlapIntersect()
-    # detach and remove .notdef
+    # Detach and remove .notdef
     Select(".notdef")
     DetachAndRemoveGlyphs()
-    # post-proccess
+    # Post-proccess
     SelectWorthOutputting()
     RoundToInt(); RemoveOverlap(); RoundToInt()
-    # generate Ricty
-    if (addfontfamily != "")
-        Print("Save " + fontfamily + addfontfamily + "-" + fontstyle_list[i] + ".ttf.")
-        Generate(fontfamily + addfontfamily + "-" + fontstyle_list[i] + ".ttf", "", 0x84)
+    # Save Ricty
+    if (fontfamilysuffix != "")
+        Print("Save " + fontfamily + fontfamilysuffix + "-" + fontstyle_list[i] + ".ttf.")
+        Generate(fontfamily + fontfamilysuffix + "-" + fontstyle_list[i] + ".ttf", "", 0x84)
     else
         Print("Save " + fontfamily + "-" + fontstyle_list[i] + ".ttf.")
         Generate(fontfamily + "-" + fontstyle_list[i] + ".ttf", "", 0x84)
     endif
     Close()
-i += 1; endloop
+i += 1
+endloop
+
 Quit()
 _EOT_
 
 ########################################
-# generate Ricty
+# Generate Ricty
 ########################################
 
-# generate
-$fontforge_cmd -script ${tmpdir}/${modified_inconsolata_generator} \
+# Generate Ricty
+$fontforge_command -script ${tmpdir}/${modified_inconsolata_generator} \
     2> $redirection_stderr || exit 4
-$fontforge_cmd -script ${tmpdir}/${modified_migu1m_generator} \
+$fontforge_command -script ${tmpdir}/${modified_migu1m_generator} \
     2> $redirection_stderr || exit 4
-$fontforge_cmd -script ${tmpdir}/${ricty_generator} \
+$fontforge_command -script ${tmpdir}/${ricty_generator} \
     2> $redirection_stderr || exit 4
 
-# remove tmp
+# Remove temporary directory
 if [ "$leaving_tmp_flag" = "false" ]
 then
     echo "Remove temporary files."
     rm -rf $tmpdir
 fi
 
-# generate Ricty Discord (if the script exists)
+# Generate Ricty Discord (if the script exists)
 path2discord_patch=$(dirname $0)/ricty_discord_patch.pe
 if [ -r "$path2discord_patch" ]
 then
-    $fontforge_cmd -script $path2discord_patch \
-        ${ricty_familyname}${ricty_addfamilyname}-Regular.ttf \
-        ${ricty_familyname}${ricty_addfamilyname}-Bold.ttf \
+    $fontforge_command -script $path2discord_patch \
+        ${ricty_familyname}${ricty_familyname_suffix}-Regular.ttf \
+        ${ricty_familyname}${ricty_familyname_suffix}-Bold.ttf \
         2> $redirection_stderr || exit 4
 fi
 
-# exit
+# Exit
 echo "Succeeded to generate Ricty!"
 exit 0

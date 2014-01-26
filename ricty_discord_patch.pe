@@ -1,19 +1,18 @@
 #!/usr/local/bin/fontforge -script
 
 #
-# Ricty Discord Patch for Ricty 3.2.2
+# Ricty Discord Patch for Ricty 3.2.3b
 #
-# Author: Yasunori Yusa <lastname at save dot sys.t.u-tokyo.ac.jp>
+# Author: Yasunori Yusa <lastname at save.sys.t.u-tokyo.ac.jp>
 #
-# This script is for generating ``Ricty Discord'' from Ricty. Owing to SIL
+# This script is to generate ``Ricty Discord'' from Ricty. Owing to SIL
 # Open Font License Version 1.1 section 5, it is PROHIBITED to distribute
 # the generated font.
 #
-# How to use:
-# % fontforge -script ricty_discord_patch.pe [options] Ricty-Regular.ttf Ricty-Bold.ttf
+# Usage:
+#     % fontforge -script ricty_discord_patch.pe Ricty-Regular.ttf Ricty-Bold.ttf
 #
 
-# check args
 if ($argc == 1)
     Print("Usage: ricty_discord_patch.pe [options] fontfamily-fontstyle.ttf ...")
     Print("")
@@ -44,7 +43,6 @@ if ($argc == 1)
     Quit()
 endif
 
-# set flags
 flag_space="false"
 flag_quotedbl="true"
 flag_quotesingle="true"
@@ -69,7 +67,6 @@ flag_z="true"
 flag_bar="true"
 flag_asciitilde="true"
 
-# begin loop in args
 i = 1
 while (i < $argc)
 if (Strsub($argv[i], 0, 1) == "-")
@@ -149,43 +146,37 @@ if (Strsub($argv[i], 0, 1) == "-")
 else
 
 ########################################
-# set parameters
+# Set parameters
 ########################################
 
-# get argument
 input = $argv[i]:t:r
 
-# set font names
 hyphen_idx = Strrstr(input, '-')
 if ($argv[i]:e != "ttf" || hyphen_idx == -1)
-    Print("Illegal Argument: " + $argv[i])
+    Print("Invalid Argument: " + $argv[i])
     Quit()
 endif
 inputfamily = Strsub(input, 0, hyphen_idx)
 inputstyle  = Strsub(input, hyphen_idx+1)
 addfamily   = "Discord"
 
-# print message
 Print("Generate " + inputfamily + addfamily + "-" + inputstyle + ".ttf.")
 
 ########################################
-# open file and set configuration
+# Open file and set configuration
 ########################################
 
-# open file
 Open($argv[i])
 
-# set encoding to Unicode-bmp
 Reencode("unicode")
 
-# set configuration
 SetFontNames(inputfamily + addfamily + "-" + inputstyle, \
              $familyname + " " + addfamily, \
              $familyname + " " + addfamily + " " + inputstyle, \
              inputstyle)
 
 ########################################
-# edit some glyphs
+# Edit some glyphs
 ########################################
 
 # space -> visible space
@@ -337,14 +328,14 @@ if (flag_asciitilde == "true")
 endif
 
 ########################################
-# generate
+# Generate
 ########################################
 
 Generate(inputfamily + addfamily + "-" + inputstyle + ".ttf", "", 0x84)
 Close()
 
-# end loop
 endif
-i += 1; endloop
+i += 1
+endloop
 
 Quit()
