@@ -53,6 +53,7 @@ SetFontNames(output_family + "-" + output_style, \
              $familyname, \
              $familyname + " " + style, \
              input_style)
+SetTTFName(0x409, 2, style)
 
 SelectWorthOutputting()
 
