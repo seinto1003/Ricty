@@ -59,6 +59,10 @@ SelectWorthOutputting()
 
 Transform(100, 0, 20, 100, 0, 0)
 
+RoundToInt()
+RemoveOverlap()
+RoundToInt()
+
 Generate(output_family + "-" + output_style + ".ttf", "", 0x84)
 Close()
 
