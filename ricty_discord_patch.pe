@@ -187,14 +187,14 @@ endif
 
 # " -> magnified "
 if (flag_quotedbl == "true")
-    Select(0u0022);  Scale(115, 115, 250, 600); SetWidth(500)
-    RemoveOverlap(); RoundToInt()
+    Select(0u0022); Scale(115, 115, 250, 600); SetWidth(500)
+    RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
 
 # ' -> magnified '
 if (flag_quotesingle == "true")
-    Select(0u0027);  Scale(115, 115, 250, 600); SetWidth(500)
-    RemoveOverlap(); RoundToInt()
+    Select(0u0027); Scale(115, 115, 250, 600); SetWidth(500)
+    RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
 
 # * -> * moved downward a little
@@ -209,8 +209,8 @@ endif
 
 # , -> magnified ,
 if (flag_comma == "true")
-    Select(0u002c);  Scale(115, 115, 250, 0); SetWidth(500)
-    RemoveOverlap(); RoundToInt()
+    Select(0u002c); Scale(115, 115, 250, 0); SetWidth(500)
+    RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
 
 # - -> - moved downward a little
@@ -220,36 +220,36 @@ endif
 
 # . -> magnified .
 if (flag_period == "true")
-    Select(0u002e);  Scale(115, 115, 250, 0); SetWidth(500)
-    RemoveOverlap(); RoundToInt()
+    Select(0u002e); Scale(115, 115, 250, 0); SetWidth(500)
+    RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
 
 # 0 -> dotted 0
 if (flag_0 == "true")
-    Select(0u00b7);  Copy() # middle dot
-    Select(0u0030);  Paste(); CenterInWidth()
-    Select(65610);   Copy() # zero (Inconsolata's unused glyph)
-    Select(0u0030);  PasteInto()
-    RemoveOverlap(); RoundToInt()
+    Select(0u00b7); Copy() # middle dot
+    Select(0u0030); Paste(); CenterInWidth()
+    Select(65610);  Copy() # zero (Inconsolata's unused glyph)
+    Select(0u0030); PasteInto()
+    RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
 
 # 7 -> 7 with cross-bar
 if (flag_7 == "true")
     Select(0u00af); Copy() # macron
     Select(0u0037); PasteWithOffset(20, -263)
-    RemoveOverlap(); RoundToInt()
+    RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
 
 # : -> magnified :
 if (flag_colon == "true")
-    Select(0u003a);  Scale(115, 115, 250, 0); SetWidth(500)
-    RemoveOverlap(); RoundToInt()
+    Select(0u003a); Scale(115, 115, 250, 0); SetWidth(500)
+    RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
 
 # ; -> magnified ;
 if (flag_semicolon == "true")
-    Select(0u003b);  Scale(115, 115, 250, 0); SetWidth(500)
-    RemoveOverlap(); RoundToInt()
+    Select(0u003b); Scale(115, 115, 250, 0); SetWidth(500)
+    RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
 
 # < and > -> < and > moved downward a little
@@ -272,24 +272,24 @@ endif
 # Z -> Z with cross-bar
 if (flag_Z == "true")
     Select(0u00af); Copy()  # macron
-    Select(65611);  Paste() # tmp glyph
+    Select(65611);  Paste() # Temporary glyph
     Transform(100, -65, 0, 100, 0, -12000); SetWidth(500)
     Copy()
-    Select(0u005a);  PasteInto()
-    RemoveOverlap(); RoundToInt()
-    Select(65611);   Clear() # tmp glyph
+    Select(0u005a); PasteInto()
+    RoundToInt(); RemoveOverlap(); RoundToInt()
+    Select(65611);  Clear() # Temporary glyph
 endif
 
 # ^ -> magnified ^
 if (flag_asciicircum == "true")
-    Select(0u005e);  Scale(115, 115, 250, 600); SetWidth(500)
-    RemoveOverlap(); RoundToInt()
+    Select(0u005e); Scale(115, 115, 250, 600); SetWidth(500)
+    RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
 
 # ` -> magnified `
 if (flag_grave == "true")
-    Select(0u0060);  Scale(115, 115, 250, 600); SetWidth(500)
-    RemoveOverlap(); RoundToInt()
+    Select(0u0060); Scale(115, 115, 250, 600); SetWidth(500)
+    RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
 
 # l -> l of cutting off left-bottom serif
@@ -308,12 +308,12 @@ endif
 # z -> z with cross-bar
 if (flag_z == "true")
     Select(0u00af); Copy()  # macron
-    Select(65611);  Paste() # tmp glyph
+    Select(65611);  Paste() # Temporary glyph
     Transform(75, -52, 0, 100, 5500, -23500); SetWidth(500)
     Copy()
-    Select(0u007a);  PasteInto()
-    RemoveOverlap(); RoundToInt()
-    Select(65611);   Clear() # tmp glyph
+    Select(0u007a); PasteInto()
+    RoundToInt(); RemoveOverlap(); RoundToInt()
+    Select(65611);  Clear() # Temporary glyph
 endif
 
 # | -> broken | (Inconsolata's glyph)
