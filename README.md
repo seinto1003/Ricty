@@ -108,11 +108,11 @@ OpenType file を入手し、インストールしてください。
 
 以上 2 種類のフォントをインストールした後で
 
-    % sh ricty_generator.sh auto
+    % ./ricty_generator.sh auto
 
 もしくは、
 
-    % sh ricty_generator.sh Inconsolata.otf migu-1m-regular.ttf migu-1m-bold.ttf
+    % ./ricty_generator.sh Inconsolata.otf migu-1m-regular.ttf migu-1m-bold.ttf
 
 生成には 2–5 分程の時間がかかります。
 
