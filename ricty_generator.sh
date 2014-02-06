@@ -138,7 +138,7 @@ do
             ;;
         "n" )
             echo "Option: Set fontfamily suffix: ${OPTARG}"
-            ricty_familyname_suffix=`echo $OPTARG | sed -e 's/ //g'`
+            ricty_familyname_suffix=`echo $OPTARG | tr -d ' '`
             ;;
         "w" )
             echo "Option: Widen line space"
@@ -211,7 +211,7 @@ then
     input_migu1m_bold=`find $fonts_directories -follow -iname migu-1m-bold.ttf    | head -n 1`
     if [ -z "$input_migu1m_regu" -o -z "$input_migu1m_bold" ]
     then
-        echo "Error: migu-1m-regular/bold.ttf not found" >&2
+        echo "Error: migu-1m-regular.ttf and/or migu-1m-bold.ttf not found" >&2
         exit 1
     fi
 elif [ $# -eq 3 ]
@@ -256,11 +256,11 @@ fi
 # Remove temporary directory by trapping
 if [ "$leaving_tmp_flag" = "false" ]
 then
-    trap "if [ -d \"$tmpdir\" ]; then echo 'Remove temporary files'; rm -rf $tmpdir; fi; echo 'Abnormal terminated'; exit 3" HUP INT QUIT
-    trap "if [ -d \"$tmpdir\" ]; then echo 'Remove temporary files'; rm -rf $tmpdir; fi; echo 'Abnormal terminated'" ERR
+    trap "if [ -d \"$tmpdir\" ]; then echo 'Remove temporary files.'; rm -rf $tmpdir; fi; echo 'Abnormally terminated.'; exit 3" HUP INT QUIT
+    trap "if [ -d \"$tmpdir\" ]; then echo 'Remove temporary files.'; rm -rf $tmpdir; fi; echo 'Abnormally terminated.'" ERR
 else
-    trap "echo 'Abnormal terminated'; exit 3" HUP INT QUIT
-    trap "echo 'Abnormal terminated'" ERR
+    trap "echo 'Abnormally terminated.'; exit 3" HUP INT QUIT
+    trap "echo 'Abnormally terminated.'" ERR
 fi
 
 ########################################
@@ -458,7 +458,7 @@ while (i < SizeOf(fontstyle_list))
     SetPanose([2, 11, panoseweight_list[i], 9, 2, 2, 3, 2, 2, 7])
     # Merge fonts
     Print("While merging " + inconsolata_list[i]:t \\
-          + " with " +migu1m_list[i]:t + ", wait a little...")
+          + " with " + migu1m_list[i]:t + ", wait a little...")
     MergeFonts(inconsolata_list[i])
     MergeFonts(migu1m_list[i])
     # Edit zenkaku space (from ballot box and heavy greek cross)
