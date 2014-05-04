@@ -10,12 +10,8 @@ ricty_version="3.2.3b"
 # It requires 2-5 minutes to generate Ricty. Owing to SIL Open Font License
 # Version 1.1 section 5, it is PROHIBITED to distribute the generated font.
 # This script supports following versions of inputting fonts.
-# * Inconsolata Version 001.010
-# * Migu 1M     Version 20111002
-#                       20120411
-#                       20121030
-#                       20130430
-#                       20130617
+# * Inconsolata Version 001.010 or later
+# * Migu 1M     Version 2011.1002 or later
 #
 # Usage:
 # 1. Install FontForge
@@ -46,7 +42,7 @@ ricty_descent=215
 
 # Set bold width of ASCII glyphs
 ascii_regular_width=0
-ascii_bold_width=30
+ascii_bold_width=60
 
 # Set path to fontforge command
 fontforge_command="fontforge"
@@ -55,7 +51,7 @@ fontforge_command="fontforge"
 redirection_stderr="/dev/null"
 
 # Set fonts directories used in auto flag
-fonts_directories=". ${HOME}/.fonts /usr/local/share/fonts /usr/share/fonts ${HOME}/Library/Fonts /Library/Fonts /cygdrive/c/Windows/Fonts"
+fonts_directories=". ${HOME}/.fonts /usr/local/share/fonts /usr/share/fonts ${HOME}/Library/Fonts /Library/Fonts /c/Windows/Fonts /cygdrive/c/Windows/Fonts"
 
 # Set zenkaku space glyph
 zenkaku_space_glyph=""
@@ -105,8 +101,8 @@ ricty_generator_help()
     echo "  -n string              Set fontfamily suffix (\`\`Ricty string'')"
     echo "  -w                     Widen line space"
     echo "  -W                     Widen line space extremely"
-    echo "  -b                     Make bold-face ASCII glyphs more bold"
-    echo "  -B                     Make regular-/bold-face ASCII glyphs more bold"
+    echo "  -b                     Make bold-face ASCII glyphs lighter"
+    echo "  -B                     Make regular-face ASCII glyphs bolder"
     echo "  -Z unicode             Set visible zenkaku space copied from another glyph"
     echo "  -z                     Disable visible zenkaku space"
     echo "  -a                     Disable fullwidth ambiguous charactors"
@@ -151,13 +147,12 @@ do
             ricty_descent=`expr $ricty_descent + 64`
             ;;
         "b" )
-            echo "Option: Make bold-face ASCII glyphs more bold"
-            ascii_bold_width=`expr $ascii_bold_width + 30`
+            echo "Option: Make bold-face ASCII glyphs lighter"
+            ascii_bold_width=`expr $ascii_bold_width - 30`
             ;;
         "B" )
-            echo "Option: Make regular-/bold-face ASCII glyphs more bold"
+            echo "Option: Make regular-face ASCII glyphs bolder"
             ascii_regular_width=`expr $ascii_regular_width + 30`
-            ascii_bold_width=`expr $ascii_bold_width + 30`
             ;;
         "Z" )
             echo "Option: Set visible zenkaku space copied from another glyph: ${OPTARG}"
