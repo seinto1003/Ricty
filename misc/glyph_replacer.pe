@@ -1,7 +1,7 @@
 #!/usr/local/bin/fontforge -script
 
 #
-# Replace Glyph
+# Glyph Replacer
 #
 # Author: Yasunori Yusa <lastname at save dot sys.t.u-tokyo.ac.jp>
 #
