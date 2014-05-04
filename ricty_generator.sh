@@ -2,7 +2,7 @@
 
 #
 # Ricty Generator
-ricty_version="3.2.3b"
+ricty_version="3.2.3"
 #
 # Author: Yasunori Yusa <lastname at save.sys.t.u-tokyo.ac.jp>
 #
