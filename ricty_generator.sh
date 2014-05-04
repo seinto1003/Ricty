@@ -547,5 +547,5 @@ then
 fi
 
 # Exit
-echo "Succeeded to generate Ricty!"
+echo "Succeeded in generating Ricty!"
 exit 0
