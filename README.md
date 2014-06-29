@@ -5,7 +5,7 @@ Emacs や Vim を用いた C、C++、FORTRAN、Python、Perl、Ruby、AWK、sed�
 以下の 2 つの等幅フォントの合成、および、プログラミング用フォントとしてのいくつかのチューニングを行う生成スクリプトの配布を行なっています。
 
 * [Inconsolata](http://levien.com/type/myfonts/inconsolata.html): 「[Top 10 Programming Fonts](http://hivelogic.com/articles/top-10-programming-fonts/)」や「[プログラミング時に最適なフォント『Inconsolata』](http://weboo-returns.com/blog/inconsolata-as-a-programming-font/)」などで高い評価を受けているサンセリフ体等幅欧文フォント
-* [Migu 1M](http://mix-mplus-ipa.sourceforge.jp/): [M+ 1M](http://mplus-fonts.sourceforge.jp/) と [IPA ゴシック](http://ossipedia.ipa.go.jp/ipafont/)の合成フォント (旧称 M+1VM+IPAG circle/M+2VM+IPAG circle) であり、「[Windows でプログラミングに最適なフォントを探す](http://blog.blueblack.net/item_121)」などで高い評価を受けているゴシック体等幅和文フォント
+* [Migu 1M](http://mix-mplus-ipa.sourceforge.jp/): [M+ 1M](http://mplus-fonts.sourceforge.jp/) と [IPA ゴシック](http://ipafont.ipa.go.jp/)の合成フォント (旧称 M+1VM+IPAG circle/M+2VM+IPAG circle) であり、「[Windows でプログラミングに最適なフォントを探す](http://blog.blueblack.net/item_121)」などで高い評価を受けているゴシック体等幅和文フォント
 
 Inconsolata 作者の Raph Levien 氏、
 Migu 1M 作者の itouhiro 氏、
@@ -95,7 +95,7 @@ IPA ゴシックのベースとされている [TB ゴシック](http://www.type
 
 ### その他の Linux
 
-[FontForge 公式サイト](http://fontforge.sourceforge.net/ja/)より
+[FontForge 公式サイト](http://fontforge.org/ja/)より
 入手してください。
 
 ## Inconsolata のインストール
