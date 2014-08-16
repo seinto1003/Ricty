@@ -1,7 +1,7 @@
 # プログラミング用フォント Ricty
 
-[![Ricty screenshot of GNU Emacs on Ubuntu](https://raw.github.com/yascentur/Ricty/master/screenshots/ricty_screenshot_emacs_thumbnail.png)](https://raw.github.com/yascentur/Ricty/master/screenshots/ricty_screenshot_emacs.png)
-[![Ricty screenshot of GVim on Ubuntu](https://raw.github.com/yascentur/Ricty/master/screenshots/ricty_screenshot_gvim_thumbnail.png)](https://raw.github.com/yascentur/Ricty/master/screenshots/ricty_screenshot_gvim.png)
+[![Ricty screenshot of GNU Emacs on Ubuntu](https://raw.githubusercontent.com/yascentur/Ricty/master/screenshots/ricty_screenshot_emacs_thumbnail.png)](https://raw.githubusercontent.com/yascentur/Ricty/master/screenshots/ricty_screenshot_emacs.png)
+[![Ricty screenshot of GVim on Ubuntu](https://raw.githubusercontent.com/yascentur/Ricty/master/screenshots/ricty_screenshot_gvim_thumbnail.png)](https://raw.githubusercontent.com/yascentur/Ricty/master/screenshots/ricty_screenshot_gvim.png)
 
 Ricty (リクティ) は Linux 環境での研究・開発に適したフリーなプログラミング用 TrueType フォントです。
 Emacs や Vim を用いた C、C++、FORTRAN、Python、Perl、Ruby、AWK、sed、シェルスクリプト、LaTeX などのコーディングにおける使用を想定しています。
@@ -31,6 +31,9 @@ Inconsolata 作者の Raph Levien 氏、Migu 1M 作者の itouhiro 氏、M+ 1M �
   特に、OFL 1.1 section 5 に従い、生成されたフォントの再配布は禁止とします。
 
 # バージョン
+
+Ricty 生成スクリプトを配布しています。
+また、姉妹フォント [Ricty Diminished](https://github.com/yascentur/RictyDiminished) は TrueType フォントを配布しています。
 
 ## Version 3.2.3 (4 May 2014)
 
