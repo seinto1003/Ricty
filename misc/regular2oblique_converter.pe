@@ -3,12 +3,13 @@
 #
 # Regular to Oblique Converter
 #
-# Author: Yasunori Yusa <lastname at save.sys.t.u-tokyo.ac.jp>
+# Copyright (c) 2014, Yasunori Yusa <yusa at save.sys.t.u-tokyo.ac.jp>
+# All rights reserved.
 #
 # This script is to convert a regular font to an oblique one.
 # Oblique and bold oblique fonts will be available on Emacs.
 #
-# How to use:
+# Usage:
 usage = "Usage: fontforge -script regular2oblique_converter.pe fontfamily-fontstyle.ttf ..."
 #
 

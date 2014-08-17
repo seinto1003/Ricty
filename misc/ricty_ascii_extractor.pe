@@ -3,10 +3,11 @@
 #
 # Ricty ASCII Extractor
 #
-# Author: Yasunori Yusa <lastname at save dot sys.t.u-tokyo.ac.jp>
+# Copyright (c) 2011-2014, Yasunori Yusa <yusa at save.sys.t.u-tokyo.ac.jp>
+# All rights reserved.
 #
-# This script is for extracting ASCII charactors from Ricty.
-# If the window width of Cocoa Emacs is twice larger than you expect,
+# This script is to extracting ASCII charactors from Ricty.
+# If the window width of Cocoa Emacs is twice as large as expected,
 # you can use this script and write configuration file as following.
 #
 # (set-face-attribute 'default nil
@@ -16,25 +17,25 @@
 #                   'japanese-jisx0208
 #                   '("Ricty Discord" . "iso10646-1"))
 #
-# How to use:
-# % fontforge -script ricty_ascii_extractor.pe RictyDiscord-*.ttf
+# Usage:
+usage = "Usage: ricty_ascii_extractor.pe fontfamily-fontstyle.ttf ..."
 #
 
-# check args
+# Check args
 if ($argc == 1)
-    Print("Usage: ricty_ascii_extractor.pe fontfamily-fontstyle.ttf ...")
+    Print(usage)
     Quit()
 endif
 
-# begin loop in args
+# Begin loop in args
 i = 1
 while (i < $argc)
 
 ########################################
-# set vars
+# Set variables
 ########################################
 
-# get args
+# Get args
 input_ttf  = $argv[i]
 input      = input_ttf:t:r
 if (input_ttf:t:e != "ttf")
@@ -42,7 +43,7 @@ if (input_ttf:t:e != "ttf")
     Quit()
 endif
 
-# get font names
+# Get font names
 hyphen_idx = Strrstr(input, '-')
 if (hyphen_idx == -1)
     Print("Usage: ricty_ascii_extractor.pe fontfamily-fontstyle.ttf")
@@ -53,22 +54,22 @@ inputstyle  = Strsub(input, hyphen_idx+1)
 addfamily   = "Ascii"
 
 ########################################
-# open and set configs
+# Open and set configs
 ########################################
 
-# open
+# Open
 Open(input_ttf)
 
-# set encoding to Unicode-bmp
+# Set encoding to Unicode-bmp
 Reencode("unicode")
 
-# set configs
+# Set configs
 SetFontNames(inputfamily + addfamily + "-" + inputstyle, \
              $familyname + " " + addfamily, \
              $familyname + " " + addfamily + " " + inputstyle, \
              inputstyle)
 
-# i would like to remove these hard-coding lines...
+# These hard-coded lines should be removed...
 SetOS2Value("WinAscentIsOffset",       0)
 SetOS2Value("WinDescentIsOffset",      0)
 SetOS2Value("TypoAscentIsOffset",      0)
@@ -84,10 +85,10 @@ SetOS2Value("HHeadAscent",           815)
 SetOS2Value("HHeadDescent",         -215)
 
 ########################################
-# remove except ascii glyphs
+# Remove except ascii glyphs
 ########################################
 
-# set ascii glyphs list
+# Set ascii glyphs list
 ascii_list = [ \
     0u0020, 0u0021, 0u0022, 0u0023, 0u0024, \
     0u0025, 0u0026, 0u0027, 0u0028, 0u0029, \
@@ -108,7 +109,7 @@ ascii_list = [ \
     0u0075, 0u0076, 0u0077, 0u0078, 0u0079, \
     0u007A, 0u007B, 0u007C, 0u007D, 0u007E ]
 
-# remove glyphs
+# Remove glyphs
 SelectNone()
 j = 0; while (j < SizeOf(ascii_list))
     SelectMore(ascii_list[j])
@@ -117,13 +118,13 @@ SelectInvert()
 Clear()
 
 ########################################
-# generate
+# Generate
 ########################################
 
 Generate(inputfamily + addfamily + "-" + inputstyle + ".ttf", "", 0x84)
 Print("Generated " + inputfamily + addfamily + "-" + inputstyle + ".ttf")
 Close()
 
-# end loop
+# End loop
 i += 1; endloop
 Quit()
