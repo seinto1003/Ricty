@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #
 # Ricty Generator
@@ -277,11 +277,10 @@ fi
 # Remove temporary directory by trapping
 if [ "$leaving_tmp_flag" = "false" ]
 then
-    trap "if [ -d \"$tmpdir\" ]; then echo 'Remove temporary files.'; rm -rf $tmpdir; fi; echo 'Abnormally terminated.'; exit 3" HUP INT QUIT
-    trap "if [ -d \"$tmpdir\" ]; then echo 'Remove temporary files.'; rm -rf $tmpdir; fi; echo 'Abnormally terminated.'" ERR
+    trap "if [ -d \"$tmpdir\" ]; then echo 'Remove temporary files.'; rm -rf $tmpdir; echo 'Abnormally terminated.'; fi; exit 3" HUP INT QUIT
+    trap "if [ -d \"$tmpdir\" ]; then echo 'Remove temporary files.'; rm -rf $tmpdir; echo 'Abnormally terminated.'; fi" EXIT
 else
     trap "echo 'Abnormally terminated.'; exit 3" HUP INT QUIT
-    trap "echo 'Abnormally terminated.'" ERR
 fi
 
 ########################################
