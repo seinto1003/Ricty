@@ -54,6 +54,7 @@ SetFontNames(output_family + "-" + output_style, \
              $familyname, \
              $familyname + " " + style, \
              style)
+SetTTFName(0x409, 2, style)
 SetTTFName(0x409, 3, "FontForge 2.0 : " + $fullname + " : " + Strftime("%d-%m-%Y", 0))
 
 SelectWorthOutputting()

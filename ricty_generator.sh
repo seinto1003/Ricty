@@ -452,6 +452,7 @@ while (i < SizeOf(fontstyle_list))
                      fontstyle_list[i], \\
                      copyright, version)
     endif
+    SetTTFName(0x409, 2, fontstyle_list[i])
     SetTTFName(0x409, 3, "FontForge 2.0 : " + \$fullname + " : " + Strftime("%d-%m-%Y", 0))
     ScaleToEm(860, 140)
     SetOS2Value("Weight", fontweight_list[i]) # Book or Bold
