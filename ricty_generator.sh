@@ -104,7 +104,8 @@ ricty_generator="ricty_generator.pe"
 cat << _EOT_
 Ricty Generator ${ricty_version}
 
-Author: Yasunori Yusa <lastname at save.sys.t.u-tokyo.ac.jp>
+Copyright (c) 2011-2014, Yasunori Yusa <yusa at save.sys.t.u-tokyo.ac.jp>
+All rights reserved.
 
 This script is to generate \`\`Ricty'' font from Inconsolata and Migu 1M.
 It requires 2-5 minutes to generate Ricty. Owing to SIL Open Font License
@@ -451,6 +452,7 @@ while (i < SizeOf(fontstyle_list))
                      fontstyle_list[i], \\
                      copyright, version)
     endif
+    SetTTFName(0x409, 3, "FontForge 2.0 : " + \$fullname + " : " + Strftime("%d-%m-%Y", 0))
     ScaleToEm(860, 140)
     SetOS2Value("Weight", fontweight_list[i]) # Book or Bold
     SetOS2Value("Width",                   5) # Medium

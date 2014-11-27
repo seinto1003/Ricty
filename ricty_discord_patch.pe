@@ -200,6 +200,7 @@ SetFontNames(inputfamily + addfamily + "-" + inputstyle, \
              $familyname + " " + addfamily, \
              $familyname + " " + addfamily + " " + inputstyle, \
              inputstyle)
+SetTTFName(0x409, 3, "FontForge 2.0 : " + $fullname + " : " + Strftime("%d-%m-%Y", 0))
 
 ########################################
 # Edit some glyphs
