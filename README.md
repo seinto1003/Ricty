@@ -32,6 +32,10 @@ Inconsolata 作者の Raph Levien 氏、Migu 1M 作者の itouhiro 氏、M+ 1M �
 Ricty 生成スクリプトを配布しています。
 また、姉妹フォント [Ricty Diminished](https://github.com/yascentur/RictyDiminished) は TrueType フォントを配布しています。
 
+## Version 3.2.4 (7 Dec. 2014)
+
+* ライセンス変更 (public domain → 二条項 BSD)
+
 ## Version 3.2.3 (4 May 2014)
 
 * ASCII グリフのボールド体の太さの変更 (以前の太さにするときは `-b`)
@@ -125,7 +129,7 @@ OpenSUSE
     % cp -f Ricty*.ttf ~/.fonts/
     % fc-cache -vf
 
-## (おまけ) `ricty_generator.sh` のコマンドラインオプション
+## `ricty_generator.sh` のコマンドラインオプション
 
 * `-h`: ヘルプを表示する。
 * `-V`: バージョン番号を表示する。

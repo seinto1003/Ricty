@@ -2,7 +2,7 @@
 
 #
 # Ricty Generator
-ricty_version="3.2.4b"
+ricty_version="3.2.4"
 #
 
 #
