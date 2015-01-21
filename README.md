@@ -107,10 +107,12 @@ OpenSUSE
 ## Inconsolata のインストール
 
 [Inconsolata 公式サイト](http://levien.com/type/myfonts/inconsolata.html)より OpenType file を入手し、インストールしてください。
+ディストリビューションによってはパッケージが提供されています。
 
 ## Migu 1M のインストール
 
 「[M+ と IPA の合成フォント](http://mix-mplus-ipa.sourceforge.jp/)」より入手し、インストールしてください (MigMix ではありません)。
+ディストリビューションによってはパッケージが提供されています。
 
 ## Ricty の生成
 
