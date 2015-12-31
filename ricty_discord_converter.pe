@@ -1,11 +1,11 @@
-#!/usr/local/bin/fontforge -script
+#!fontforge -script
 
 #
-# Ricty Discord Patch
+# Ricty Discord Converter
 #
 
 #
-# Copyright (c) 2011-2014, Yasunori Yusa <yusa at save.sys.t.u-tokyo.ac.jp>
+# Copyright (c) 2011-2015, Yasunori Yusa <yascentur at gmail.com>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -35,12 +35,9 @@
 # Open Font License Version 1.1 section 5, it is PROHIBITED to distribute
 # the generated font.
 #
-# Usage:
-#     % fontforge -script ricty_discord_patch.pe Ricty-Regular.ttf Ricty-Bold.ttf
-#
 
 if ($argc == 1)
-    Print("Usage: ricty_discord_patch.pe [options] fontfamily-fontstyle.ttf ...")
+    Print("Usage: ricty_discord_converter.pe [options] Ricty-Regular.ttf Ricty-Bold.ttf")
     Print("")
     Print("Options:")
     Print("  -space                    Enable visible hankaku space")
@@ -255,7 +252,7 @@ endif
 if (flag_0 == "true")
     Select(0u00b7); Copy() # middle dot
     Select(0u0030); Paste(); CenterInWidth()
-    Select(65610);  Copy() # zero (Inconsolata's unused glyph)
+    Select(65551);  Copy() # zero (Inconsolata's unused glyph)
     Select(0u0030); PasteInto()
     RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
@@ -299,12 +296,12 @@ endif
 # Z -> Z with cross-bar
 if (flag_Z == "true")
     Select(0u00af); Copy()  # macron
-    Select(65611);  Paste() # Temporary glyph
+    Select(65552);  Paste() # Temporary glyph
     Transform(100, -65, 0, 100, 0, -12000); SetWidth(500)
     Copy()
     Select(0u005a); PasteInto()
     RoundToInt(); RemoveOverlap(); RoundToInt()
-    Select(65611);  Clear() # Temporary glyph
+    Select(65552);  Clear() # Temporary glyph
 endif
 
 # ^ -> magnified ^
@@ -328,19 +325,19 @@ endif
 
 # r -> r of serif (Inconsolata's unused glyph)
 if (flag_r == "true")
-    Select(65608);  Copy()
+    Select(65549);  Copy()
     Select(0u0072); Paste()
 endif
 
 # z -> z with cross-bar
 if (flag_z == "true")
     Select(0u00af); Copy()  # macron
-    Select(65611);  Paste() # Temporary glyph
+    Select(65552);  Paste() # Temporary glyph
     Transform(75, -52, 0, 100, 5500, -23500); SetWidth(500)
     Copy()
     Select(0u007a); PasteInto()
     RoundToInt(); RemoveOverlap(); RoundToInt()
-    Select(65611);  Clear() # Temporary glyph
+    Select(65552);  Clear() # Temporary glyph
 endif
 
 # | -> broken | (Inconsolata's glyph)

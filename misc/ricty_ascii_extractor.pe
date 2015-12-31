@@ -1,9 +1,9 @@
-#!/usr/local/bin/fontforge -script
+#!fontforge -script
 
 #
 # Ricty ASCII Extractor
 #
-# Copyright (c) 2011-2014, Yasunori Yusa <yusa at save.sys.t.u-tokyo.ac.jp>
+# Copyright (c) 2011-2014, Yasunori Yusa <yascentur at gmail.com>
 # All rights reserved.
 #
 # This script is to extracting ASCII charactors from Ricty.

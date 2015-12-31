@@ -8,9 +8,9 @@ Emacs や Vim を用いた C、C++、FORTRAN、Python、Perl、Ruby、AWK、sed�
 以下の 2 つの等幅フォントの合成、および、プログラミング用フォントとしてのいくつかのチューニングを行う生成スクリプトの配布を行なっています。
 
 * [Inconsolata](http://levien.com/type/myfonts/inconsolata.html): 「[Top 10 Programming Fonts](http://hivelogic.com/articles/top-10-programming-fonts/)」や「[プログラミング時に最適なフォント『Inconsolata』](http://weboo-returns.com/blog/inconsolata-as-a-programming-font/)」などで高い評価を受けているサンセリフ体等幅欧文フォント
-* [Migu 1M](http://mix-mplus-ipa.sourceforge.jp/): [M+ 1M](http://mplus-fonts.sourceforge.jp/) と [IPA ゴシック](http://ipafont.ipa.go.jp/)の合成フォント (旧称 M+1VM+IPAG circle/M+2VM+IPAG circle) であり、「[Windows でプログラミングに最適なフォントを探す](http://blog.blueblack.net/item_121)」などで高い評価を受けているゴシック体等幅和文フォント
+* [Migu 1M](http://mix-mplus-ipa.osdn.jp/): [M+ 1M](http://mix-mplus-ipa.osdn.jp/) と [IPA ゴシック](http://ipafont.ipa.go.jp/)の合成フォント (旧称 M+1VM+IPAG circle/M+2VM+IPAG circle) であり、「[Windows でプログラミングに最適なフォントを探す](http://blog.blueblack.net/item_121)」などで高い評価を受けているゴシック体等幅和文フォント
 
-Inconsolata 作者の Raph Levien 氏、Migu 1M 作者の itouhiro 氏、M+ 1M 作者の coz 氏、IPA ゴシックのベースとされている [TB ゴシック](http://www.typebank.co.jp/fonts/gothic/tbg.html)作者の林隆男氏、私のイニシャルから &ldquo;Ricty&rdquo; と命名しました。
+Inconsolata 作者の Raph Levien 氏、Migu 1M 作者の itouhiro 氏、M+ 1M 作者の coz 氏、IPA ゴシックのベースとされている [TB ゴシック](https://www.typebank.co.jp/fontfamily/tbgothic/)作者の林隆男氏、私のイニシャルから &ldquo;Ricty&rdquo; と命名しました。
 
 # 特徴
 
@@ -31,6 +31,11 @@ Inconsolata 作者の Raph Levien 氏、Migu 1M 作者の itouhiro 氏、M+ 1M �
 
 Ricty 生成スクリプトを配布しています。
 また、姉妹フォント [Ricty Diminished](https://github.com/yascentur/RictyDiminished) は TrueType フォントを配布しています。
+
+## Version 4.0.0 (31 Dec. 2015)
+
+* Inconsolata.otf から Inconsolata-Regular/Bold.ttf への切り替え
+* Inconsolata をボールド化するオプションの廃止
 
 ## Version 3.2.4 (7 Dec. 2014)
 
@@ -100,18 +105,18 @@ OpenSUSE
 
     # zypper install fontforge
 
-その他の Linux
+その他の Linux ディストリビューション
 
-[FontForge 公式サイト](http://fontforge.org/ja/)より入手してください。
+[FontForge Open Source Font Editor](https://fontforge.github.io/) より入手してください。
 
 ## Inconsolata のインストール
 
-[Inconsolata 公式サイト](http://levien.com/type/myfonts/inconsolata.html)より OpenType file を入手し、インストールしてください。
+[Google Fonts Inconsolata](https://www.google.com/fonts/specimen/Inconsolata) (リリース版) もしくは [GitHub google/fonts/ofl/inconsolata](https://github.com/google/fonts/tree/master/ofl/inconsolata) (リポジトリ) より `Inconsolata-Regular.ttf` および `Inconsolata-Bold.ttf` を入手し、インストールしてください。
 ディストリビューションによってはパッケージが提供されています。
 
 ## Migu 1M のインストール
 
-「[M+ と IPA の合成フォント](http://mix-mplus-ipa.sourceforge.jp/)」より入手し、インストールしてください (MigMix ではありません)。
+「[M+ と IPA の合成フォント](http://mix-mplus-ipa.osdn.jp/) `migu-1m-regular.ttf` および `migu-1m-bold.ttf` を入手し、インストールしてください。
 ディストリビューションによってはパッケージが提供されています。
 
 ## Ricty の生成
@@ -122,7 +127,7 @@ OpenSUSE
 
 もしくは、
 
-    % ./ricty_generator.sh Inconsolata.otf migu-1m-regular.ttf migu-1m-bold.ttf
+    % ./ricty_generator.sh Inconsolata-Regular.ttf Inconsolata-Bold.ttf migu-1m-regular.ttf migu-1m-bold.ttf
 
 生成には 2–5 分程の時間がかかります。
 
@@ -141,8 +146,6 @@ OpenSUSE
 * `-n string`: フォントファミリ名を「Ricty」ではなく「Ricty ○○○」として生成する。
 * `-w`: 行間を広くする。
 * `-W`: 行間をかなり広くする。
-* `-b`: ASCII グリフのボールド体をより細くする。
-* `-B`: ASCII グリフのレギュラー体をより太くする。
 * `-Z unicode`: 他のグリフのコピーすることで全角スペースを可視化する (たとえば `-Z 2318` とすると、全角スペースが &#x2318; になる)。
 * `-z`: 全角スペースを可視化しない。
 * `-a`: Inconsolata のグリフを優先し、Ambiguous 文字を全角化しない。
@@ -152,12 +155,12 @@ OpenSUSE
 
 Ricty では、調和・統一感の維持のため、プログラミング用フォントのコアである Inconsolata 由来の ASCII 文字に手を入れないようにしています。
 Discord (不協和音) 版は、統一感を乱す覚悟で ASCII 文字に手を入れた Ricty の派生フォントです。
-通常、Ricty Discord は Ricty 生成の際に自動的に生成されますが、パッチスクリプトを直接実行することによっても生成できます。
+通常、Ricty Discord は Ricty 生成の際に自動的に生成されますが、コンバートスクリプトを直接実行することによっても生成できます。
 このとき、オプションを指定することで個々の変更点を無効化することができます。
 
-    % fontforge -script ricty_discord_patch.pe [options] Ricty-Regular.ttf Ricty-Bold.ttf
+    % ./ricty_discord_converter.pe [options] Ricty-Regular.ttf Ricty-Bold.ttf
 
-## `ricty_discord_patch.pe` のコマンドラインオプション
+## `ricty_discord_converter.pe` のコマンドラインオプション
 
 * `-space`: 「 (半角スペース)」を可視化する。
 * `-quotedbl`: 「"」を拡大しない。
@@ -232,12 +235,8 @@ GVim (Mac OS X/Windows)
   Ricty Discord Oblique は Discord 化、斜体化の順で生成してください。
 * `ricty_generator.sh` に Migu 1M 以外の日本語フォントを食べさせても大抵はうまく合成されます。
   ボールド体がない日本語フォントでも、ダミーを食べさせて `Ricty-Bold.ttf` を破棄すれば問題ありません。
-* `ricty_discord_patch.pe` は好みで変更点を適宜無効化して使われることを想定して、若干過剰に作ってあります。
+* `ricty_discord_converter.pe` は好みで変更点を適宜無効化して使われることを想定して、若干過剰に作ってあります。
   私は 7, D, Z, z の 4 文字の変更を無効化しています (`-7 -D -Z -z`)。
 * Cocoa Emacs でフレーム幅が意図した幅の倍になってしまうときは、本末転倒気味ですが、`misc/ricty_ascii_extractor.pe` で ASCII 文字のみを分離したフォントを生成する方法が有効です。
 * `misc/ricty_greek_regenerator.pe` でアクセント付きギリシア文字を全角幅にすることができます。
   現時点ではギリシア文字拡張グリフには対応していません。
-
-# 作者連絡先
-
-[遊佐泰紀 (Yasunori Yusa)](http://save.sys.t.u-tokyo.ac.jp/~yusa/index.html.ja)
