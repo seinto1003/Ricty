@@ -2,7 +2,7 @@
 
 #
 # Ricty Generator
-ricty_version="4.0.0"
+ricty_version="4.0.1b"
 #
 
 #
@@ -334,7 +334,8 @@ while (i < SizeOf(input_list))
 
     # Pre-process for merging
     SelectWorthOutputting()
-    ClearInstrs(); UnlinkReference()
+    ClearInstrs()
+    UnlinkReference()
 
     # Save modified Inconsolata
     Print("Save " + output_list[i] + ".")
@@ -369,9 +370,10 @@ while (i < SizeOf(input_list))
     # Scale Migu 1M to standard glyph size
     ScaleToEm(860, 140)
     SelectWorthOutputting()
-    ClearInstrs(); UnlinkReference()
+    ClearInstrs()
+    UnlinkReference()
     if ("$scaling_down_flag" == "true")
-        Print("While scaling " + input_list[i]:t + ", wait a little...")
+        Print("Scale all glyphs (it may takes a little time).")
         SetWidth(-1, 1); Scale(91, 91, 0, 0); SetWidth(110, 2); SetWidth(1, 1)
         Move(23, 0); SetWidth(-23, 1)
     endif
@@ -465,8 +467,8 @@ while (i < SizeOf(fontstyle_list))
     SetPanose([2, 11, panoseweight_list[i], 9, 2, 2, 3, 2, 2, 7])
 
     # Merge fonts
-    Print("While merging " + inconsolata_list[i]:t \\
-          + " with " + migu1m_list[i]:t + ", wait a little...")
+    Print("Merge " + inconsolata_list[i]:t \\
+          + " with " + migu1m_list[i]:t + " (it may takes a little time).")
     MergeFonts(inconsolata_list[i])
     MergeFonts(migu1m_list[i])
 
@@ -517,6 +519,9 @@ while (i < SizeOf(fontstyle_list))
     # Post-proccess
     SelectWorthOutputting()
     RoundToInt(); RemoveOverlap(); RoundToInt()
+    Print("Hint and instruct all glyphs (it may takes a little time).")
+    AutoHint()
+    AutoInstr()
 
     # Save Ricty
     if (fontfamilysuffix != "")
