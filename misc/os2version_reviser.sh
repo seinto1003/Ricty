@@ -19,7 +19,7 @@ os2_version="1"
 
 if [ $# -eq 0 ]
 then
-    echo usage
+    echo $usage
     exit 0
 fi
 
