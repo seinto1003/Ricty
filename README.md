@@ -240,3 +240,4 @@ GVim (Mac OS X/Windows)
 * Cocoa Emacs でフレーム幅が意図した幅の倍になってしまうときは、本末転倒気味ですが、`misc/ricty_ascii_extractor.pe` で ASCII 文字のみを分離したフォントを生成する方法が有効です。
 * `misc/ricty_greek_regenerator.pe` でアクセント付きギリシア文字を全角幅にすることができます。
   現時点ではギリシア文字拡張グリフには対応していません。
+#Ricty
